@@ -240,11 +240,10 @@ function DashboardContent() {
               <button
                 key={t.key}
                 onClick={() => handleTabChange(t.key)}
-                className={`px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-medium whitespace-nowrap border-b-2 transition flex-shrink-0 ${
-                  tab === t.key
+                className={`px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-medium whitespace-nowrap border-b-2 transition flex-shrink-0 ${tab === t.key
                     ? 'border-sky-500 text-sky-600'
                     : 'border-transparent text-slate-500 hover:text-slate-700'
-                }`}
+                  }`}
               >
                 {t.label}
               </button>
@@ -523,12 +522,11 @@ function DashboardContent() {
                   {treatment.suggestions.map((s, i) => (
                     <div key={i} className="bg-white rounded-xl border border-slate-200 p-5">
                       <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                        <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold capitalize ${
-                          s.priority === 'critical' ? 'bg-red-100 text-red-700' :
-                          s.priority === 'high' ? 'bg-orange-100 text-orange-700' :
-                          s.priority === 'medium' ? 'bg-amber-100 text-amber-700' :
-                          'bg-green-100 text-green-700'
-                        }`}>{s.priority} priority</span>
+                        <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold capitalize ${s.priority === 'critical' ? 'bg-red-100 text-red-700' :
+                            s.priority === 'high' ? 'bg-orange-100 text-orange-700' :
+                              s.priority === 'medium' ? 'bg-amber-100 text-amber-700' :
+                                'bg-green-100 text-green-700'
+                          }`}>{s.priority} priority</span>
                         <span className="text-xs text-slate-400">{s.category}</span>
                         <span className="text-xs text-sky-600 sm:ml-auto">Confidence: {(s.confidence * 100).toFixed(0)}%</span>
                       </div>
@@ -563,20 +561,18 @@ function DashboardContent() {
               {patient.encounters?.map((e, i) => (
                 <div key={e.id} className="flex gap-4">
                   <div className="flex flex-col items-center">
-                    <div className={`w-3 h-3 rounded-full mt-1.5 ${
-                      e.encounter_type === 'Emergency' ? 'bg-red-500' :
-                      e.encounter_type === 'Inpatient' ? 'bg-orange-500' : 'bg-sky-500'
-                    }`} />
+                    <div className={`w-3 h-3 rounded-full mt-1.5 ${e.encounter_type === 'Emergency' ? 'bg-red-500' :
+                        e.encounter_type === 'Inpatient' ? 'bg-orange-500' : 'bg-sky-500'
+                      }`} />
                     {i < patient.encounters.length - 1 && <div className="w-0.5 flex-1 bg-slate-200 my-1" />}
                   </div>
                   <div className="pb-6 flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xs font-bold text-slate-400">{e.date}</span>
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                        e.encounter_type === 'Emergency' ? 'bg-red-100 text-red-700' :
-                        e.encounter_type === 'Inpatient' ? 'bg-orange-100 text-orange-700' :
-                        'bg-sky-100 text-sky-700'
-                      }`}>{e.encounter_type}</span>
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${e.encounter_type === 'Emergency' ? 'bg-red-100 text-red-700' :
+                          e.encounter_type === 'Inpatient' ? 'bg-orange-100 text-orange-700' :
+                            'bg-sky-100 text-sky-700'
+                        }`}>{e.encounter_type}</span>
                     </div>
                     <p className="font-semibold text-sm text-slate-800">{e.chief_complaint}</p>
                     <p className="text-xs text-slate-600 mt-0.5"><b>Dx:</b> {e.diagnosis}</p>
@@ -613,11 +609,10 @@ function DashboardContent() {
                 )}
                 {messages.map((m, i) => (
                   <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm ${
-                      m.role === 'user'
+                    <div className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm ${m.role === 'user'
                         ? 'bg-sky-600 text-white rounded-br-md'
                         : 'bg-slate-100 text-slate-700 rounded-bl-md'
-                    }`}>
+                      }`}>
                       <pre className="whitespace-pre-wrap font-sans">{m.text}</pre>
                     </div>
                   </div>
@@ -655,6 +650,19 @@ function DashboardContent() {
       </main>
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  // Return some dummy IDs for the static export to succeed.
+  // In a real SPA with output: export, these are just shells; 
+  // the actual data is fetched on the client side using the ID from the URL.
+  return [
+    { id: '1' },
+    { id: '2' },
+    { id: '3' },
+    { id: '4' },
+    { id: '5' }
+  ];
 }
 
 export default function PatientDashboard() {
