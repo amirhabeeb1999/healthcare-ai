@@ -24,7 +24,18 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+    origin: function (origin, callback) {
+        const allowedOrigins = [
+            'http://localhost:3000',
+            'http://127.0.0.1:3000'
+        ];
+        // Allow App Runner domains and no-origin requests (like health checks)
+        if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.awsapprunner.com')) {
+            callback(null, true);
+        } else {
+            callback(null, true); // Allow all origins in production for now
+        }
+    },
     credentials: true
 }));
 app.use(express.json({ limit: '1mb' }));
