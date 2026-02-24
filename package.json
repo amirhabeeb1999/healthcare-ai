@@ -1,0 +1,8 @@
+{
+    "name": "healthcare-ai-monorepo",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "cd frontend && npm install && NODE_OPTIONS='--max-old-space-size=1536' npm run build && cd ../backend && npm install",
+        "start": "cd backend && node server.js"
+    }
+}
