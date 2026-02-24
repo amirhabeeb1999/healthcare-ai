@@ -82,6 +82,36 @@ async function start() {
             res.json({ status: 'ok', timestamp: new Date().toISOString(), service: 'healthcare-ai-backend' });
         });
 
+        // Serve frontend static files (Next.js export)
+        const frontendPath = path.join(__dirname, '..', 'frontend', 'out');
+        const fs = require('fs');
+        if (fs.existsSync(frontendPath)) {
+            console.log(`[INFO] Serving frontend from: ${frontendPath}`);
+            app.use(express.static(frontendPath));
+
+            // SPA fallback: serve index.html for all non-API routes
+            app.get('*', (req, res, next) => {
+                if (req.path.startsWith('/api')) return next();
+                // Try to serve the exact file first (e.g. /patients.html)
+                const filePath = path.join(frontendPath, req.path + '.html');
+                if (fs.existsSync(filePath)) {
+                    return res.sendFile(filePath);
+                }
+                // Try index.html in directory (e.g. /patients/index.html)
+                const dirIndex = path.join(frontendPath, req.path, 'index.html');
+                if (fs.existsSync(dirIndex)) {
+                    return res.sendFile(dirIndex);
+                }
+                // Fallback to root index.html for client-side routing
+                res.sendFile(path.join(frontendPath, 'index.html'));
+            });
+        } else {
+            console.log('[INFO] No frontend build found. API-only mode.');
+            app.get('/', (req, res) => {
+                res.json({ message: 'Healthcare AI API', health: '/api/health' });
+            });
+        }
+
         // Error handler
         app.use((err, req, res, next) => {
             console.error(`[ERROR] ${err.message}`);
@@ -91,7 +121,7 @@ async function start() {
         });
 
         app.listen(PORT, () => {
-            console.log(`\n🏥 Healthcare AI Backend running on http://localhost:${PORT}`);
+            console.log(`\n🏥 Healthcare AI running on http://localhost:${PORT}`);
             console.log(`📋 Health check: http://localhost:${PORT}/api/health`);
             console.log(`🔑 Demo login: dr.smith / password123\n`);
         });
