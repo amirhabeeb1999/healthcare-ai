@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --primary: #0ea5e9;
+  --primary-dark: #0284c7;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #22c55e;
+  --muted: #64748b;
+  --card: #ffffff;
+  --border: #e2e8f0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+/* Risk badges */
+.risk-critical { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.risk-high { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+.risk-medium { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+.risk-low { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+
+/* Hide scrollbar for tab bars on mobile */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Severity badges */
+.sev-critical { background: #dc2626; color: white; }
+.sev-high { background: #ea580c; color: white; }
+.sev-medium { background: #d97706; color: white; }
+.sev-low { background: #65a30d; color: white; }
