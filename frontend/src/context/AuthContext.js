@@ -2,7 +2,7 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = typeof window !== 'undefined' ? `${window.location.origin}/api` : '/api';
 
 const AuthContext = createContext(null);
 
@@ -159,7 +159,7 @@ export function useAuth() {
       user: null, token: null, loading: true, sessionExpired: false,
       isAuthenticated: false, isDoctor: false, isNurse: false, isAdmin: false,
       canAccessAI: false, canManageUsers: false,
-      login: async () => {}, logout: () => {}, authFetch: async () => {},
+      login: async () => { }, logout: () => { }, authFetch: async () => { },
     };
   }
   return ctx;
